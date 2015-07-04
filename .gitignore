@@ -1,0 +1,10 @@
+dist
+hellopython.egg-info
+build
+*.pyc
+*.egg
+.tox
+.coverage
+htmlcov
+run.py
+.pyschool
