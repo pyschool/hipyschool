@@ -7,6 +7,7 @@ from . import print_method
 class Story(BaseStory):
 
     name = 'hellopython'
+    title = 'Introuction to python'
     adventures = [
         print_method
     ]
