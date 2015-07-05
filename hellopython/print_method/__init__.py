@@ -6,6 +6,7 @@ from workshopper.problems import BaseProblem
 
 
 class Problem(BaseProblem):
+    title = 'Print method'
 
     def test(self, file):
         old_stdout = sys.stdout
