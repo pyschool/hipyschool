@@ -1,12 +1,12 @@
 __version__ = '1.0.0'
 
-from workshopper.workshop import BaseWorkshop
+from story.story import BaseStory
 from . import print_method
 
 
-class Workshop(BaseWorkshop):
+class Story(BaseStory):
 
     name = 'hellopython'
-    problems = [
+    adventures = [
         print_method
     ]

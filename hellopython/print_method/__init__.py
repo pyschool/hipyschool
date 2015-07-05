@@ -2,10 +2,10 @@ import codecs
 import io
 import sys
 
-from workshopper.problems import BaseProblem
+from story.adventures import BaseAdventure
 
 
-class Problem(BaseProblem):
+class Adventure(BaseAdventure):
 
     def test(self, file):
         old_stdout = sys.stdout
