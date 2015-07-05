@@ -1,6 +1,5 @@
-Solution: Print Method
-======================
+`program.py` content:
 
-```
-print('Hello World')
-```
+.. sourcecode:: python
+
+    print('Hello World')

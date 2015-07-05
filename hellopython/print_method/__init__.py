@@ -2,10 +2,10 @@ import codecs
 import io
 import sys
 
-from workshopper.problems import BaseProblem
+from story.adventures import BaseAdventure
 
 
-class Problem(BaseProblem):
+class Adventure(BaseAdventure):
     title = 'Print method'
 
     def test(self, file):

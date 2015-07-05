@@ -2,9 +2,9 @@
 
 import sys
 
-sys.path.append('../workshopper')
+sys.path.append('../story')
 
 
-from hellopython import Workshop
+from hellopython import Story
 
-Workshop.run()
+Story.begin()
