@@ -1,21 +1,21 @@
 from setuptools import setup, find_packages
 
-version = __import__('hipython').__version__
+hipython = __import__('hipython')
 
 setup(
     name='hipython',
-    version=version,
-    license='MIT',
-    author='PySchool',
+    version=hipython.__version__,
+    description=hipython.__doc__.strip(),
+    author=hipython.__author__,
+    license=hipython.__licence__,
     url='https://github.com/pyschool/hipython/',
-    description='The hipython workshop.',
     packages=find_packages(),
     install_requires=[
         'story',
     ],
     entry_points={
         'console_scripts': [
-            'hipython = hipython.Story:begin',
+            'hipython = hipython.story:Story.begin',
         ]
     },
 )

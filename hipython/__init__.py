@@ -1,13 +1,7 @@
-__version__ = '1.0.2'
+"""
+HiPython story for PySchool
+"""
 
-from story.story import BaseStory
-from . import print_method
-
-
-class Story(BaseStory):
-
-    name = 'hipython'
-    title = 'Introuction to python'
-    adventures = [
-        print_method
-    ]
+__author__ = 'PySchool'
+__version__ = '1.0.4'
+__licence__ = 'MIT'
