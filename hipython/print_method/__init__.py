@@ -4,9 +4,12 @@ import sys
 
 from story.adventures import BaseAdventure
 
+from ..data import _
+
 
 class Adventure(BaseAdventure):
-    title = 'Print method'
+
+    title = _('Print method')
 
     def test(self, file):
         old_stdout = sys.stdout
@@ -14,4 +17,4 @@ class Adventure(BaseAdventure):
         eval(codecs.open(file).read())
         message = sys.stdout.getvalue()
         sys.stdout = old_stdout
-        assert message == 'Hi Python\n'
+        assert message == _('Hi Python\n')
