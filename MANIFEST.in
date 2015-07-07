@@ -1,0 +1,2 @@
+recursive-include hipython *.py *.rst
+include README.rst
