@@ -1,20 +1,19 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
-version = __import__('hellopython').__version__
+version = __import__('hipython').__version__
 
 setup(
-    name='hellopython',
+    name='hipython',
     version=version,
-    packages=['hellopython'],
+    packages=find_packages(),
     license='MIT',
     author='PySchool',
-    url='https://github.com/pyschool/hellopython/',
-    description='The hellopython workshop.',
+    url='https://github.com/pyschool/hipython/',
+    description='The hipython workshop.',
     include_package_data=True,
-    scripts=['hellopython/bin/hellopython.py'],
     entry_points={
         'console_scripts': [
-            'hellopython = hellopython.workshop:run_from_command_line',
+            'hipython = hipython.Story:begin',
         ]
     },
 )
