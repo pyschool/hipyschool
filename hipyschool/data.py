@@ -1,7 +1,7 @@
 import os
 import gettext
 
-domain = 'hipython'
+domain = 'hipyschool'
 localedir = os.path.join(os.path.dirname(__file__), 'locale/')
 gettext.bindtextdomain(domain, localedir)
 translation = gettext.translation(domain, localedir, fallback=True)

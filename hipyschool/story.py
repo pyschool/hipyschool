@@ -6,8 +6,8 @@ from .data import _
 
 class Story(BaseStory):
 
-    name = 'hipython'
-    title = _('Introuction to python')
+    name = 'hipyschool'
+    title = _('Sample pyschool story.')
     adventures = [
         print_method
     ]

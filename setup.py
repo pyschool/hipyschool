@@ -1,21 +1,21 @@
 from setuptools import setup, find_packages
 
-hipython = __import__('hipython')
+hipyschool = __import__('hipyschool')
 
 setup(
-    name='hipython',
-    version=hipython.__version__,
-    description=hipython.__doc__.strip(),
-    author=hipython.__author__,
-    license=hipython.__licence__,
-    url='https://github.com/pyschool/hipython/',
+    name='hipyschool',
+    version=hipyschool.__version__,
+    description=hipyschool.__doc__.strip(),
+    author=hipyschool.__author__,
+    license=hipyschool.__licence__,
+    url='https://github.com/pyschool/hipyschool/',
     packages=find_packages(),
     install_requires=[
         'story',
     ],
     entry_points={
         'console_scripts': [
-            'hipython = hipython.story:Story.begin',
+            'hipyschool = hipyschool.story:Story.begin',
         ]
     },
     classifiers=[

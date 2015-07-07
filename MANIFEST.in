@@ -1,2 +1,2 @@
-recursive-include hipython *.py *.rst
+recursive-include hipyschool *.py *.rst
 include README.rst

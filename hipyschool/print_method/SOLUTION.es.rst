@@ -2,4 +2,4 @@
 
 .. sourcecode:: python
 
-    print('Hola Python')
+    print('Hola PySchool')

@@ -1,5 +1,5 @@
 """
-HiPython story for PySchool
+HiPyschool sample story
 """
 
 __author__ = 'PySchool'

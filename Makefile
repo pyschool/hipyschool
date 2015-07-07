@@ -1,4 +1,4 @@
-VERSION=$(shell grep __version__ hipython/__init__.py)
+VERSION=$(shell grep __version__ hipyschool/__init__.py)
 REQUIREMENTS="requirements-dev.pip"
 TAG="\n\n\033[0;32m\#\#\# "
 END=" \#\#\# \033[0m\n"
@@ -6,60 +6,60 @@ END=" \#\#\# \033[0m\n"
 all: test
 
 msg-init:
-	@echo $(TAG)Initialising messages from Hi Python$(END)
-	- pybabel init -D hipython -i hipython/locale/hipython.pot -d hipython/locale -l en
-	- pybabel init -D hipython -i hipython/locale/hipython.pot -d hipython/locale -l es
+	@echo $(TAG)Initialising messages from Hi Pyschool$(END)
+	- pybabel init -D hipyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l en
+	- pybabel init -D hipyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l es
 	@echo
 
 msg-extract:
-	@echo $(TAG)Extracting messages from Hi Python$(END)
-	- pybabel extract -o hipython/locale/hipython.pot hipython
-	- pybabel update -D hipython -i hipython/locale/hipython.pot -d hipython/locale -l en
-	- pybabel update -D hipython -i hipython/locale/hipython.pot -d hipython/locale -l es
+	@echo $(TAG)Extracting messages from Hi Pyschool$(END)
+	- pybabel extract -o hipyschool/locale/hipyschool.pot hipyschool
+	- pybabel update -D hipyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l en
+	- pybabel update -D hipyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l es
 	@echo
 
 msg-compile:
-	@echo $(TAG)Compiling messages to Hi Python$(END)
-	- pybabel compile -D hipython -d hipython/locale -f --statistics
+	@echo $(TAG)Compiling messages to Hi Pyschool$(END)
+	- pybabel compile -D hipyschool -d hipyschool/locale -f --statistics
 	@echo
 
 msg: msg-extract msg-compile
 
-uninstall-hipython:
-	@echo $(TAG)Removing existing installation of Hi Python$(END)
-	- pip uninstall --yes hipython >/dev/null
+uninstall-hipyschool:
+	@echo $(TAG)Removing existing installation of Hi Pyschool$(END)
+	- pip uninstall --yes hipyschool >/dev/null
 	@echo
 
-uninstall-all: uninstall-hipython
+uninstall-all: uninstall-hipyschool
 	- pip uninstall --yes -r $(REQUIREMENTS)
 
-init: uninstall-hipython
+init: uninstall-hipyschool
 	@echo $(TAG)Installing dev requirements$(END)
 	pip install --upgrade -r $(REQUIREMENTS)
-	@echo $(TAG)Installing Hi Python$(END)
+	@echo $(TAG)Installing Hi Pyschool$(END)
 	pip install --upgrade --editable .
 	@echo
 
 test: init
-	@echo $(TAG)Running tests in on current Python with coverage $(END)
-	py.test --cov ./hipython --cov ./tests --doctest-modules --verbose ./hipython ./tests
+	@echo $(TAG)Running tests in on current Pyschool with coverage $(END)
+	py.test --cov ./hipyschool --cov ./tests --doctest-modules --verbose ./hipyschool ./tests
 	@echo
 
 test-tox: init
-	@echo $(TAG)Running tests on all Pythons via Tox$(END)
+	@echo $(TAG)Running tests on all Pyschools via Tox$(END)
 	tox
 	@echo
 
 test-dist: test-sdist test-bdist-wheel
 	@echo
 
-test-sdist: clean uninstall-hipython
+test-sdist: clean uninstall-hipyschool
 	@echo $(TAG)Testing sdist build an installation$(END)
 	python setup.py sdist
 	pip install --force-reinstall --upgrade dist/*.gz
 	@echo
 
-test-bdist-wheel: clean uninstall-hipython
+test-bdist-wheel: clean uninstall-hipyschool
 	@echo $(TAG)Testing wheel build an installation$(END)
 	python setup.py bdist_wheel
 	pip install --force-reinstall --upgrade dist/*.whl
