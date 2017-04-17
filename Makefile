@@ -1,84 +1,122 @@
+.PHONY: clean clean-test clean-pyc clean-build help
+.DEFAULT_GOAL := help
+define BROWSER_PYSCRIPT
+import os, webbrowser, sys
+try:
+	from urllib import pathname2url
+except:
+	from urllib.request import pathname2url
+
+webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
+endef
+export BROWSER_PYSCRIPT
+
+define PRINT_HELP_PYSCRIPT
+import re, sys
+
+for line in sys.stdin:
+	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
+	if match:
+		target, help = match.groups()
+		print("%-20s %s" % (target, help))
+endef
+export PRINT_HELP_PYSCRIPT
+
+BROWSER := python -c "$$BROWSER_PYSCRIPT"
 VERSION=$(shell grep __version__ hipyschool/__init__.py)
-REQUIREMENTS="requirements-dev.pip"
+REQUIREMENTS="requirements_dev.pip"
 TAG="\n\n\033[0;32m\#\#\# "
 END=" \#\#\# \033[0m\n"
 
 all: test
 
+help:
+	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+
+clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+
+clean-build:
+	@echo $(TAG)Remove build artifacts$(END)
+	rm -fr build/
+	rm -fr dist/
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -f {} +
+	@echo
+
+clean-pyc:
+	@echo $(TAG)Remove Python file artifacts$(END)
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
+	@echo
+
+clean-test:
+	@echo $(TAG)Remove test and coverage artifacts$(END)
+	rm -fr .tox/
+	rm -f .coverage
+	rm -fr htmlcov/
+	@echo
+
+lint:
+	@echo $(TAG)Remove test and coverage artifacts$(END)
+	flake8 hipyschool tests
+	@echo
+
 msg-init:
-	@echo $(TAG)Initialising messages from Hi Pyschool$(END)
-	- pybabel init -D hipyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l en
-	- pybabel init -D hipyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l es
+	@echo $(TAG)Initializing messages$(END)
+	pybabel init -D pyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l en
+	pybabel init -D pyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l es
 	@echo
 
 msg-extract:
-	@echo $(TAG)Extracting messages from Hi Pyschool$(END)
-	- pybabel extract -o hipyschool/locale/hipyschool.pot hipyschool
-	- pybabel update -D hipyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l en
-	- pybabel update -D hipyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l es
+	@echo $(TAG)Extracting messages$(END)
+	pybabel extract -o hipyschool/locale/hipyschool.pot hipyschool
+	pybabel update -D pyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l en
+	pybabel update -D pyschool -i hipyschool/locale/hipyschool.pot -d hipyschool/locale -l es
 	@echo
 
 msg-compile:
-	@echo $(TAG)Compiling messages to Hi Pyschool$(END)
-	- pybabel compile -D hipyschool -d hipyschool/locale -f --statistics
+	@echo $(TAG)Compiling messages$(END)
+	pybabel compile -D pyschool -d hipyschool/locale -f --statistics
 	@echo
 
 msg: msg-extract msg-compile
 
-uninstall-hipyschool:
-	@echo $(TAG)Removing existing installation of Hi Pyschool$(END)
-	- pip uninstall --yes hipyschool >/dev/null
+test:
+	@echo $(TAG)Run tests quickly with the default Python$(END)
+	PYTHONPATH=. py.test ./tests
 	@echo
 
-uninstall-all: uninstall-hipyschool
-	- pip uninstall --yes -r $(REQUIREMENTS)
-
-init: uninstall-hipyschool
-	@echo $(TAG)Installing dev requirements$(END)
-	pip install --upgrade -r $(REQUIREMENTS)
-	@echo $(TAG)Installing Hi Pyschool$(END)
-	pip install --upgrade --editable .
-	@echo
-
-test: init
-	@echo $(TAG)Running tests in on current Pyschool with coverage $(END)
-	py.test --cov ./hipyschool --cov ./tests --doctest-modules --verbose ./hipyschool ./tests
-	@echo
-
-test-tox: init
-	@echo $(TAG)Running tests on all Pyschools via Tox$(END)
+test-all:
+	@echo $(TAG)Run tests on every Python version with tox$(END)
 	tox
 	@echo
 
-test-dist: test-sdist test-bdist-wheel
+coverage:
+	@echo $(TAG)Check code coverage quickly with the default Python$(END)
+	coverage run --source hipyschool -m pytest
+
+		coverage report -m
+		coverage html
+		$(BROWSER) htmlcov/index.html
 	@echo
 
-test-sdist: clean uninstall-hipyschool
-	@echo $(TAG)Testing sdist build an installation$(END)
-	python setup.py sdist
-	pip install --force-reinstall --upgrade dist/*.gz
-	@echo
-
-test-bdist-wheel: clean uninstall-hipyschool
-	@echo $(TAG)Testing wheel build an installation$(END)
-	python setup.py bdist_wheel
-	pip install --force-reinstall --upgrade dist/*.whl
-	@echo
-
-# This tests everything, even this Makefile.
-test-all: uninstall-all clean init test test-tox test-dist
-
-publish: test-all
-	@echo $(TAG)Testing wheel build an installation$(END)
-	@echo "$(VERSION)"
-	@echo "$(VERSION)" | grep -q "dev"  && echo "!!!Not publishing dev version!!!" && exit 1
-	python setup.py register
+release: clean msg-compile
+	@echo $(TAG)Package and upload a release$(END)
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
 	@echo
 
-clean:
-	@echo $(TAG)Cleaning up$(END)
-	rm -rf .tox *.egg dist build .coverage
-	find . -name '__pycache__' -delete -print -o -name '*.pyc' -delete -print
+dist: clean msg-compile
+	@echo $(TAG)Builds source and wheel package$(END)
+	python setup.py sdist
+	python setup.py bdist_wheel
+	ls -l dist
+	@echo
+
+install: clean
+	@echo $(TAG)Install the package to the active Python site-packages$(END)
+	python setup.py install
 	@echo

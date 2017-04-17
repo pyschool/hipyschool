@@ -3,8 +3,7 @@ import io
 import sys
 
 from story.adventures import BaseAdventure
-
-from ..data import _
+from story.translation import gettext as _
 
 
 class Adventure(BaseAdventure):
