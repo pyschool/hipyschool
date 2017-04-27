@@ -25,7 +25,7 @@ setup(
     },
     include_package_data=True,
     install_requires=[
-        'story>=1.1.5'
+        'story>=1.2.2'
     ],
     license='MIT license',
     zip_safe=False,
