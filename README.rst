@@ -6,11 +6,11 @@ hipyschool
 .. image:: https://img.shields.io/pypi/v/hipyschool.svg
         :target: https://pypi.python.org/pypi/hipyschool
 
-.. image:: https://img.shields.io/travis/sophilabs/hipyschool.svg
-        :target: https://travis-ci.org/sophilabs/hipyschool
+.. image:: https://img.shields.io/travis/pyschool/hipyschool.svg
+        :target: https://travis-ci.org/pyschool/hipyschool
 
-.. image:: https://pyup.io/repos/github/sophilabs/hipyschool/shield.svg
-     :target: https://pyup.io/repos/github/sophilabs/hipyschool/
+.. image:: https://pyup.io/repos/github/pyschool/hipyschool/shield.svg
+     :target: https://pyup.io/repos/github/pyschool/hipyschool/
      :alt: Updates
 
 
