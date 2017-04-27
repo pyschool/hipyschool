@@ -11,7 +11,7 @@ with open('HISTORY.rst') as history_file:
 
 setup(
     name='hipyschool',
-    version='1.0.6',
+    version='1.0.7',
     description='A pyschool story for learning regular expressions.',
     long_description=readme + '\n\n' + history,
     author='Sophilabs',
