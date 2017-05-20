@@ -14,7 +14,7 @@ hipyschool
      :alt: Updates
 
 
-A pyschool story for learning regular expressions.
+A sample pyschool story to use as a template.
 
 
 * Free software: MIT license
